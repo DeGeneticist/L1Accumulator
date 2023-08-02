@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
-import "test/util/Helpers.sol";
+import "test/Helpers.sol";
 // import "lib/IPolygonZkEVMBridge.sol";
 
 import "src/Accumulator.sol";

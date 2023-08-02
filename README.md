@@ -85,20 +85,11 @@ src
 test
 ├─ AccumulatorUnitTests.t.sol - Unit tests for the Accumulator contract
 ├─ ForkTests.t.sol - Fork tests for Accumulator and AccumulatorFactory contracts
-├─ Util.t.sol - Test utilities and helpers
+├─ Helpers.sol - Test utilities and helpers
 ├─ 
 └─ Greeter.t — Example Contract Tests
 ```
 
-
-### Notable Mentions
-
-- [femplate](https://github.com/refcell/femplate)
-- [foundry](https://github.com/foundry-rs/foundry)
-- [solmate](https://github.com/Rari-Capital/solmate)
-- [forge-std](https://github.com/brockelmore/forge-std)
-- [forge-template](https://github.com/foundry-rs/forge-template)
-- [foundry-toolchain](https://github.com/foundry-rs/foundry-toolchain)
 
 
 ### Disclaimer

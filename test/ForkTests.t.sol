@@ -3,7 +3,7 @@
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
-import "test/util/Helpers.sol";
+import "test/Helpers.sol";
 import { AccumulatorTest } from "test/Accumulator.t.sol";
 import "src/Accumulator.sol";
 import "src/AccumulatorFactory.sol";
