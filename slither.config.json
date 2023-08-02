@@ -1,0 +1,12 @@
+{
+  "detectors_to_exclude": "naming-convention,solc-version",
+  "filter_paths": "(lib|test)",
+  "compile_force_framework": "foundry",
+  "foundry_out_directory": "out",
+  "ignore_compile": true,
+  "skip_clean": true,
+  "solc_remaps": [
+      "@openzeppelin/=lib/openzeppelin-contracts/contracts/",
+      "forge-std/=lib/forge-std/src/"
+  ]
+}
