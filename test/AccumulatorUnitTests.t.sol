@@ -8,8 +8,7 @@ import "test/Helpers.sol";
 import "src/Accumulator.sol";
 
 contract AccumulatorHarness is L1BeneficiaryAccumulator {
-    constructor(address _bridge, uint32 _originNetworkId) L1BeneficiaryAccumulator(_bridge, _originNetworkId) {
-        maxTokensToBridge = 2;
+    constructor(address _bridge, uint32 _originNetworkId, uint32 _maxTokensToBridge) L1BeneficiaryAccumulator(_bridge, _originNetworkId, _maxTokensToBridge) {
     }
 
     /// @dev Harness to expose internal _initialized variable
@@ -181,12 +180,12 @@ contract AccumulatorTest is BaseTest {
     function setUp() public virtual override {
         super.setUp();
         vm.prank(OWNER);
-        c = new AccumulatorHarness(BRIDGE, 0);
+        c = new AccumulatorHarness(BRIDGE, 0, 5);
         //c = new L1BeneficiaryAccumulator();
     }
 
     function deployAccumulatorHarness() public returns (L1BeneficiaryAccumulator accumulator) {
-        accumulator = new AccumulatorHarness(BRIDGE, 0);
+        accumulator = new AccumulatorHarness(BRIDGE, 0, 5);
         return accumulator;
     }
 

@@ -13,7 +13,7 @@ import "@openzeppelin/utils/Address.sol";
 /// @title L1BeneficiaryAccumulator
 /// @author DeGeneticist (DeGeneticist.eth)
 /// @notice This contract accumulates deposits of Ether and ERC20 tokens on zkEVM, and bridges them to the Beneficiary's
-///         address on Layer 1 via the zkEVM canonical bridge. A new clone of this contract should be deployed for each
+///         address on Layer 1 via the zkEVM canonical bridge. A new ERC-1167 clone of this contract should be deployed for each
 ///         L1 beneficiary via the AccumulatorFactory.
 /// @dev The contract utilizes OpenZeppelin libraries for security and convenience. It's intended to be deployed as a
 ///      minimal proxy (clone), so the beneficiary must be set outside of the constructor.
@@ -27,14 +27,13 @@ contract L1BeneficiaryAccumulator is IAccumulator, ReentrancyGuard {
     EnumerableSet.AddressSet internal _heldTokens;
 
     // Maximum number of tokens to bridge in one attempt
-    uint256 public maxTokensToBridge;
+    uint32 public maxTokensToBridge;
 
     // Origin network identifier (Layer 2 network ID)
     //uint32 public constant originNetworkId = 0;
     uint32 public immutable originNetworkId;
 
     // Address of the zkEVM bridge on L2
-    //address public constant bridge = 0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe;
     address public immutable bridge;
 
     // Address of the beneficiary on L1
@@ -62,12 +61,17 @@ contract L1BeneficiaryAccumulator is IAccumulator, ReentrancyGuard {
 
     /// ------------------------ Constructor ------------------------ ///
 
-    constructor(address _bridge, uint32 _originNetworkId) {
+    constructor(
+        address _bridge, 
+        uint32 _originNetworkId, 
+        uint32 _maxTokensToBridge
+        ) 
+    {
         _locked = false;
         _initialized = false;
         bridge = _bridge;
         originNetworkId = _originNetworkId;
-        maxTokensToBridge = 2;
+        maxTokensToBridge = _maxTokensToBridge;
     }
 
     /// ------------------------ Receive / Fallback ------------------------ ///
@@ -132,7 +136,7 @@ contract L1BeneficiaryAccumulator is IAccumulator, ReentrancyGuard {
     /// @dev Provided as a UI convenience, it is not advisable to call this from a smart contract
     ///     due to potentially unbounded gas fees, based on the size of the array. If you must
     ///     call this function in a transaction that costs gas, it's advised that you first
-    ///     check the size of the array via <FIXME>
+    ///     check the size of the array via numHeldTokens(), and then call getAllHeldTokens()
     /// @return tokens Array of addresses of the ERC20 tokens currently held by this contract.
     function getAllHeldTokens() external view onlyInitialized returns (address[] memory tokens) {
         return _heldTokens.values();

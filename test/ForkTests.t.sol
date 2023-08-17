@@ -31,7 +31,7 @@ contract ForkTest_depositToken is ForkTest {
 
     function setUp() public virtual override {
         super.setUp();
-        a = new L1BeneficiaryAccumulator(BRIDGE, 0);
+        a = new L1BeneficiaryAccumulator(BRIDGE, 0, 5);
         a.initialize(L1BENEFICIARY);
         dealToken(ALICE, USDC_L2, 10_000);
         dealToken(ALICE, MATIC_L2, 10_000);
@@ -56,7 +56,7 @@ contract ForkTest_bridgeToken is ForkTest {
 
     function setUp() public virtual override {
         super.setUp();
-        a = new L1BeneficiaryAccumulator(BRIDGE, 0);
+        a = new L1BeneficiaryAccumulator(BRIDGE, 0, 5);
         a.initialize(L1BENEFICIARY);
         dealToken(ALICE, USDC_L2, 10_000);
         dealToken(ALICE, MATIC_L2, 10_000);
@@ -111,7 +111,7 @@ contract ForkTest_Factory is ForkTest {
 
     function setUp() public virtual override {
         super.setUp();
-        L1BeneficiaryAccumulator impl = new L1BeneficiaryAccumulator(BRIDGE, 0);
+        L1BeneficiaryAccumulator impl = new L1BeneficiaryAccumulator(BRIDGE, 0, 5);
         impl.lock();
         address implAddress = address(impl);
 
